@@ -54,9 +54,9 @@ In the client, when log into the server
 
 When we run
 
-~~
+~~~
 tail -f auth.log
-~~
+~~~
 
 we can see how the log located in 
 ~~~
