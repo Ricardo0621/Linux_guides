@@ -55,16 +55,12 @@ In the client, when log into the server
 When we run
 
 ~~~
-tail -f auth.log
+cd /var/log/ tail -f auth.log
 ~~~
-
-we can see how the log located in 
-~~~
-/var/log/auth.log
-~~~
-
-changes everytime there is a login attempt
+we can track the changes for the auth.log for every login attempt
 
 ![Login again](images/Auth_log_2.jpg)
 
 This file is very important since it allows to see what is going on whenever we attempt to connect to the server.
+
+### Configuring the OpenSSH Client
