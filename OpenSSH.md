@@ -39,6 +39,7 @@ As long as the server is running and accepting incoming traffic on the port **22
 
 If this is the first time we connect to an ssh server, in the client, we will now have a .ssh folder that includes a known_hosts file. 
 
-![FIle](images/Known_hosts.jpg)
+This file contains the fingerprint of all the SSH servers we have connected to. If we connect again to the same server, 
+this time it won't ask if we are sure if we want to connect since the info is already in the **known_hosts** file. 
 
-This file contains the fingerprint of all the SSH servers we have connected to. If we connect again to the same server, this time it won't ask if we are sure if we want to connect since the info is already in the **known_hosts** file. 
+![FIle](images/Known_hosts.jpg)
