@@ -43,3 +43,20 @@ If this is the first time we connect to an ssh server, in the client, we will no
 
 This file contains the fingerprint of all the SSH servers we have connected to. If we connect again to the same server, 
 this time it won't ask if we are sure if we want to connect since the info is already in the **known_hosts** file. 
+
+This is important because it prevents a man-in-the-middle attack. Let's say someone creates a malicious server and they were able to set our same ip address, if that's the case, when we try to connect, Ubuntu will see that out fingerprint has changed and when that happens it will raise a warning.
+
+### Locating the auth.log file
+
+In the client, when log into the server
+
+![Login again](images/Auth_log_1.jpg)
+
+We can see how the log located in 
+~~~
+/var/log/auth.log
+~~~
+
+changes everytime there is a login attempt
+
+![Login again](images/Auth_log_2.jpg)
