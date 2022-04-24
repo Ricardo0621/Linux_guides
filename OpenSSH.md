@@ -104,3 +104,18 @@ ssh -i "public_key" newsshserver
 ~~~
 We can see we are able to log in
 ![Login with new Host variable](images/ssh_config_4.jpg)
+
+We can also include multiple servers in the file. It would look something like this:
+~~~
+Host newsshserver
+  Hostname ec2-3-22-70-11.us-east-2.compute.amazonaws.com
+  Port 22
+  User ubuntu
+
+Host otherserver
+  Hostname 172.21.284.1
+  Port 22
+  User ricardo 
+~~~
+
+# Creating an SSH key
