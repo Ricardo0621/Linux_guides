@@ -52,7 +52,13 @@ In the client, when log into the server
 
 ![Login again](images/Auth_log_1.jpg)
 
-We can see how the log located in 
+When we run
+
+~~
+tail -f auth.log
+~~
+
+we can see how the log located in 
 ~~~
 /var/log/auth.log
 ~~~
@@ -60,3 +66,5 @@ We can see how the log located in
 changes everytime there is a login attempt
 
 ![Login again](images/Auth_log_2.jpg)
+
+This file is very important since it allows to see what is going on whenever we attempt to connect to the server.
