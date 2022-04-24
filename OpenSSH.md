@@ -52,10 +52,14 @@ In the client, when log into the server
 
 ![Login again](images/Auth_log_1.jpg)
 
-When we run
-
+Locate the log directory
 ~~~
-cd /var/log/ tail -f auth.log
+cd /var/log/
+~~~
+
+When we run
+~~~
+tail -f auth.log
 ~~~
 we can track the changes for the auth.log for every login attempt
 
@@ -64,3 +68,39 @@ we can track the changes for the auth.log for every login attempt
 This file is very important since it allows to see what is going on whenever we attempt to connect to the server.
 
 ### Configuring the OpenSSH Client
+
+Let's create a config file for the SSH client. Move into the .ssh folder
+~~~
+cd .ssh
+~~~
+Create the config file
+~~~
+touch config
+~~~
+And change the file this way
+![SSH config](images/ssh_config.jpg)
+Now instead of doing
+~~~
+ssh username@ipadress
+~~~
+or 
+~~~
+ssh -i "public_key" username@ipadress
+~~~
+We can just say 
+~~~
+ssh sshserver
+~~~
+Since I'm using a Public Key on my side it looks like this:
+![Login with public key](images/ssh_config_2.jpg)
+
+**Note** that the Host variable at the end can have whatever name you want.
+Let's change the said variable this way:
+![Changing the host variable](images/ssh_config_3.jpg)
+
+Now when I run:
+~~~
+ssh -i "public_key" newsshserver
+~~~
+We can see we are able to log in
+![Login with new Host variable](images/ssh_config_4.jpg)
