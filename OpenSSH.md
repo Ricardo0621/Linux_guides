@@ -118,4 +118,4 @@ Host otherserver
   User ricardo 
 ~~~
 
-# Creating an SSH key
+### Creating an SSH key
