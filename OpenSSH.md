@@ -119,3 +119,13 @@ Host otherserver
 ~~~
 
 ### Creating an SSH key
+An SSH key is a more secure way to login into a server. It adds another layer of security in your server since most passwords tend to be predictable.
+
+Inside .ssh run the following command to generate an ssh key:
+~~~
+ssh-keygen
+~~~
+It will create a new ssh key at /home/user/.ssh/id_rsa by default
+**Important:** You want to make sure you don't already have a key in that directory. If you do, it will be overwritten and can be bad if the key is the only way in to the server.
+
+![SSH Keygen](images/ssh-keygen.jpg)
