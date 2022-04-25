@@ -308,4 +308,6 @@ On AWS you will also need to add the new port to the security group. Changing yo
 
 The single most important security configuration change that you can do is **setting PasswordAuthentication to no**. Only set it to no if you already established an ssh key connection. Make sure you can login with ssh before set it to no.
 
+The image below shows an stablished conection to the new port
+
 ![Connected to a new port](images/connected_new_port.jpg)
