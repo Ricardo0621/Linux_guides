@@ -85,7 +85,7 @@ ssh username@ipadress
 ~~~
 or 
 ~~~
-ssh -i "public_key" username@ipadress
+ssh -i "public_key" username@ipaddress
 ~~~
 We can just say 
 ~~~
@@ -129,3 +129,45 @@ It will create a new ssh key at /home/user/.ssh/id_rsa by default
 **Important:** You want to make sure you don't already have a key in that directory. If you do, it will be overwritten and can be bad if the key is the only way in to the server.
 
 ![SSH Keygen](images/ssh-keygen.jpg)
+
+Now, in the .ssh directory we will two new files: id_rsa and id_rsa.pub. The last one is the public key and, since it is public, it could be shown to everybody. The private key on the other hand (The one without the .pub extension) should not, under any circumstance, be shared or published.
+
+### Setting up the server to autenthicate via SSH key
+
+In .ssh cat-out the public key:
+~~~
+cat id_rsa
+~~~
+Login into the remote server
+~~~
+ssh username@ipadresss
+~~~
+Setup the server to accept connections via that key.
+Go to .ssh in the server. If the directory doesn't exists create it with mkdir .ssh. Then create a file called authorized_keys
+
+Edit the file authorized_keys and paste the key. You can have multiple keys, each one on it's own line
+~~~
+sudo nano authorized_keys
+~~~
+Save the file and then login into the server.
+
+![SSH Authentication](images/ssh_key_authentication.jpg)
+
+Note that, in my case, since I have an Amazon EC2 instance, to go into the remote server I had to specify the key (.rem file) to login. Now I can just run
+~~~
+ssh newsshserver
+~~~
+Again, what we just did was adding the public key on it's own line into the authorized_keys file of the .ssh folder of the server. 
+
+When we used the ssh command to connect to the server, it checked the private key against the public key on the remote end, since they are a match, we have a connection.
+
+If you want more information about what Ubuntu does when trying to connect to the remote server you can run:
+~~~
+ssh -v username@ipadress
+~~~
+# Easy way to set up SSH authentication
+Another way is to create a new ssh key with ssh-keygen and then run:
+~~~
+ssh-copy-id -i ~/.ssh/id_rsa.pub username@ipaddress
+~~~
+The argument after -i is the location of the public key
