@@ -248,5 +248,64 @@ Once we type the passphrase, when we login into the server again, it won't ask f
 
 ## On the server side
 
+To find out your username:
+~~~
+whoami
+~~~
+
+To find out your ip address:
+~~~
+ip a
+~~~
+
 ### SSH server configuration
 
+The sshd binary represents the server. When you run
+~~~
+which sshd
+~~~
+It tells you the location of that binary. 
+
+To check the status of the server run:
+~~~
+systemctl status sshd
+~~~
+Enabled here means that it will automatically start whenever the computer starts
+![](images/systemctl.jpg)
+
+With ssh server component we can use all the standard systemctl commands to manage the server running in the background.
+
+To restart the service
+~~~
+systemctl restart sshd
+~~~
+
+To restart the service
+~~~
+systemctl stop sshd
+~~~
+When you stop the service it won't terminate the existing connections. If you disconnect you won't be able to connect back the service will be disconected. It's wise to start the service again after stopping it.
+~~~
+systemctl start sshd
+~~~
+
+To enable the service at boot
+~~~
+systemctl enable ssh
+~~~
+
+In the server, when you go to /etc/ssh you will find a lot of files. Specially some host_keys. Those files are created when we connect for the first time and they contain the accepted the fingerprints. Do not delete those files. If you do and then try to connect again to the server you won't be able to.
+
+You will see the *ssh_config* and *sshd_config*. The *ssh_config* file contains global client configuration settings across the entire distribution. When you use the ssh client it is going configure itself along with this config file and the local ssh config file will override this one.
+
+The *sshd_config* contains the server configuration. We can change the port that by default is 22. We can also change PermitRootLogin to no once we have another user that we can login with via ssh outside of root since root is the account most hackes will try to login with.
+
+Change the config file as shown next.
+
+![Changing the port](images/changing_port.jpg)
+
+On AWS you will also need to add the new port to the security group. Changing your port to something different to 22 actually helps your security.
+
+The single most important security configuration change that you can do is **setting PasswordAuthentication to no**. Only set it to no if you already established an ssh key connection. Make sure you can login with ssh before set it to no.
+
+![Connected to a new port](images/connected_new_port.jpg)
