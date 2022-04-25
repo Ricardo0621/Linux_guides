@@ -165,9 +165,67 @@ If you want more information about what Ubuntu does when trying to connect to th
 ~~~
 ssh -v username@ipadress
 ~~~
-# Easy way to set up SSH authentication
+### Easy way to set up SSH authentication
 Another way is to create a new ssh key with ssh-keygen and then run:
 ~~~
 ssh-copy-id -i ~/.ssh/id_rsa.pub username@ipaddress
 ~~~
 The argument after -i is the location of the public key
+
+### Managing SSH keys
+
+You can have different ssh keys that are specific for each remote server.
+
+Generating a key with a different type. This one is more secure and shorter than the default type. What goes after C is a commentary and is located at the end of the key. If we don't include it, it will default to our username@nameofcomputer.
+
+Adding a comment allows us to add extra information that can include the purpose of that key.
+~~~
+ssh-keygen -t ed25519 -C "godzilla"
+~~~
+You can choose to save it under a different name. Entering a passphrase is option but it add another security layer.
+
+![New type of SSH key](images/new_key_type.jpg)
+
+Let's compare the two types of keys.
+
+![Comparing Key typed](images/comparing_key_types.jpg)
+
+The second key is shorter and more secure because it uses a stronger type of cryptography. The comment is also added at the end.
+
+Let's copy the new key to the server. Replace ubuntu@ec2-3-22-70-11.us-east-2.compute.amazonaws.com for username@ipaddress
+~~~
+ssh-copy-id -i ~/.ssh/godzilla_id_ed25519.pub ubuntu@ec2-3-22-70-11.us-east-2.compute.amazonaws.com
+~~~
+![Copying new Key](images/copying_new_key.jpg)
+
+Now, when we log into the server and cat the authorized_keys file, we will see the new key added at the end. In my case, I already had to keys but the new one is highlighted. That's why it is very important to add comments to the keys.
+
+![cat command on new Key](images/cat_new_key.jpg)
+
+### Using the ssh agent to catch the key in memory to only enter the passphrase once
+If you set up a passphrase you will notice that we are going to be asked to provide it everytime. To avoid this (type it only one time) we can use the ssh agent.
+
+The ssh agent will retain the key in memory and allow you to use it to connect to the server. 
+
+Checking if the ssh agent is runing
+~~~
+ps aux |grep ssh-agent
+~~~
+
+![SSH agent running](images/ssh-agent_running.jpg)
+
+In my case it was already running and it had a specific pid (process).
+
+In case it isn't running in your machine, you can start the ssh agent by runing:
+~~~
+eval "$(ssh-agent)"
+~~~
+Keep in mind that once we are disconected from the terminal, the ssh agent is gone. While it's still in memory and with the terminal open we can add the passphrase to the agent. This time we need to pass the private key.
+~~~
+ssh-add ~/.ssh/godzilla_id_ed25519.pub
+~~~
+Once we type the passphrase, when we login into the server again, it won't ask for it unless the terminal window is closed.
+
+## On the server side
+
+### SSH server configuration
