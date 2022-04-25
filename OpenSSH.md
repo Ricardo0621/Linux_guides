@@ -192,7 +192,7 @@ Let's compare the two types of keys.
 
 The second key is shorter and more secure because it uses a stronger type of cryptography. The comment is also added at the end.
 
-Let's copy the new key to the server. Replace ubuntu@ec2-3-22-70-11.us-east-2.compute.amazonaws.com for username@ipaddress
+Let's copy the new key to the server. Replace "ubuntu@ec2-3-22-70-11.us-east-2.compute.amazonaws.com" for username@ipaddress
 ~~~
 ssh-copy-id -i ~/.ssh/godzilla_id_ed25519.pub ubuntu@ec2-3-22-70-11.us-east-2.compute.amazonaws.com
 ~~~
@@ -201,6 +201,21 @@ ssh-copy-id -i ~/.ssh/godzilla_id_ed25519.pub ubuntu@ec2-3-22-70-11.us-east-2.co
 Now, when we log into the server and cat the authorized_keys file, we will see the new key added at the end. In my case, I already had to keys but the new one is highlighted. That's why it is very important to add comments to the keys.
 
 ![cat command on new Key](images/cat_new_key.jpg)
+
+**Extremely important note:** When you decide to give your ssh key a different directory or name than the default, you will need to tell ubuntu **where** to look for the ssh key. By default ubuntu will look for files like *id_rsa* or *id_ed25519* if that name doesn't match you will need to be specific while trying to login into the server. See image below:
+
+![Login error](images/login_error.jpg)
+
+Additionally, in .ssh/config you can add *IdentityFile* at the end and specify where your ssh key is located so that you can use the alias again to run the server
+
+~~~
+Host newsshserver
+  Hostname ec2-3-143-214-231.us-east-2.compute.amazonaws.com
+  Port 22
+  User ubuntu
+  IdentityFile ~/.ssh/godzilla_id_ed25519
+~~~  
+![New config file](images/ssh_config_new.jpg)
 
 ### Using the ssh agent to catch the key in memory to only enter the passphrase once
 If you set up a passphrase you will notice that we are going to be asked to provide it everytime. To avoid this (type it only one time) we can use the ssh agent.
