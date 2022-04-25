@@ -318,3 +318,30 @@ The single most important security configuration change that you can do is **set
 The image below shows an stablished conection to the new port
 
 ![Connected to a new port](images/OpenSSH/connected_new_port.jpg)
+
+## Troubleshooting
+
+A common problem is invalid permissions. To check out your premissions, on the client side, run
+~~~
+ls -la |grep .ssh
+~~~
+*d* refers to a directory. *r* refers to read, *w* for write and *x* for execute permissions. The first set of three after the *d *refers to permissions
+for the user. The next group of three refers to permissions for the group and the last set refers to everyone else.
+
+![Permissions on the .ssh directory](images/OpenSSH/permissions_ssh_directory.jpg)
+
+In this case the user has full access. The group and others have no access hence the hypens. What we get from this is that only our user can do anything with the folder. If we give permissions to anything else and open the folder up for everyone, SSH won't allow the connection via key because it won't trust a folder that is open and writeable by everybody.
+
+Inside the directory, we can see that the public key is readable by the user, group and other. That is fine since it's a public key. Notice that the private keys can also be readable and writeable by the user that owns the file. 
+
+![Permissions inside the .ssh folder](images/OpenSSH/permissions_ssh_folder.jpg)
+
+If the permissions are set up to something else the connection won't be stablished. If you have a problem connecting to a server via SSH one of the first things you should do is check the permissions. Also, on the server side, make sure that the .ssh folder and the authorized_keys file inside that directory is only readable and writeable by you. 
+
+Additionally, the auth_log file in /var/log on the server side will tell you what goes on when someone tries to login into the server.
+
+Another way to follow up the log entries is by doing
+~~~
+journalctl -fu ssh
+~~~
+![Following the log](images/OpenSSH/log_file.jpg)
