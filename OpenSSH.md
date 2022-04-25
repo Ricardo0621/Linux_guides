@@ -206,7 +206,11 @@ Now, when we log into the server and cat the authorized_keys file, we will see t
 
 ![Login error](images/login_error.jpg)
 
-Additionally, in .ssh/config you can add *IdentityFile* at the end and specify where your ssh key is located so that you can use the alias again to run the server
+Additionally, in .ssh/config you can add *IdentityFile* at the end and specify where your ssh key is located so that you can use the alias again to run the server. 
+
+If you add IdentityFile to your ssh config, you'll find that the client still sends the default key (see ssh -vv output). This can be problematic when using sites like github with multiple accounts. You'll need to include IdentitiesOnly yes if you want ssh to use only the key you've specified.
+
+After that you can login again normally.
 
 ~~~
 Host newsshserver
@@ -214,6 +218,7 @@ Host newsshserver
   Port 22
   User ubuntu
   IdentityFile ~/.ssh/godzilla_id_ed25519
+  IdentitiesOnly yes
 ~~~  
 ![New config file](images/ssh_config_new.jpg)
 
@@ -244,3 +249,4 @@ Once we type the passphrase, when we login into the server again, it won't ask f
 ## On the server side
 
 ### SSH server configuration
+
