@@ -16,7 +16,7 @@ apt search openssh-client
 ~~~
 If it's installed you will see something like this:
 
-![OpenSSH installed](images/OpenSSH/OpenSSH/OpenSSH_installed.jpg)
+![OpenSSH installed](images/OpenSSH/OpenSSH_installed.jpg)
 
 If not, install some updates first
 ~~~
