@@ -252,10 +252,17 @@ To find out your username:
 ~~~
 whoami
 ~~~
-
 To find out your ip address:
 ~~~
 ip a
+~~~
+Install OpenSSH server
+~~~
+sudo apt-get install openssh-server
+~~~
+Check the server status
+~~~
+systemctl status sshd
 ~~~
 
 ### SSH server configuration
