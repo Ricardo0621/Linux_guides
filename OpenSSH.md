@@ -305,13 +305,13 @@ In the server, when you go to /etc/ssh you will find a lot of files. Specially s
 
 You will see the *ssh_config* and *sshd_config*. The *ssh_config* file contains global client configuration settings across the entire distribution. When you use the ssh client it is going configure itself along with this config file and the local ssh config file will override this one.
 
-The *sshd_config* contains the server configuration. We can change the port that by default is 22. We can also change PermitRootLogin to no once we have another user that we can login with via ssh outside of root since root is the account most hackes will try to login with.
+The *sshd_config* contains the server configuration. We can change the "Port" variable to something different than the default value (22). We can also change "PermitRootLogin" to no once we have another user that we can login with via ssh outside of root, that it since root is the account most hacker will try to login with. Additionally, we can also set the "PasswordAuthentication" variable to no in order to no so that we can use ssh authentication. 
 
-Change the config file as shown next.
+Once you have finished modifiying the *sshd_config* update the config file (in the client side) as follows.
 
 ![Changing the port](images/OpenSSH/changing_port.jpg)
 
-On AWS you will also need to add the new port to the security group. Changing your port to something different to 22 actually helps your security.
+If you change the Port, make sure to add it to the file. On AWS you will also need to add the new port to the security group. Changing your port to something different to 22 actually helps your security.
 
 The single most important security configuration change that you can do is **setting PasswordAuthentication to no**. Only set it to no if you already established an ssh key connection. Make sure you can login with ssh before set it to no.
 
