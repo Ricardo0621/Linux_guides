@@ -305,7 +305,7 @@ In the server, when you go to /etc/ssh you will find a lot of files. Specially s
 
 You will see the *ssh_config* and *sshd_config*. The *ssh_config* file contains global client configuration settings across the entire distribution. When you use the ssh client it is going configure itself along with this config file and the local ssh config file will override this one.
 
-The *sshd_config* contains the server configuration. We can change the "Port" variable to something different than the default value (22). We can also change "PermitRootLogin" to no once we have another user that we can login with via ssh outside of root, that it since root is the account most hacker will try to login with. Additionally, we can also set the "PasswordAuthentication" variable to no in order to no so that we can use ssh authentication. 
+The *sshd_config* contains the server configuration. We can change the "Port" variable to something different than the default value (22). We can also change "PermitRootLogin" to no once we have another user that we can login with via ssh outside of root, that it since root is the account most hacker will try to login with. Additionally, we can also set the "PasswordAuthentication" variable to "no" so that we can use ssh authentication. 
 
 Once you have finished modifiying the *sshd_config* update the config file (in the client side) as follows.
 
