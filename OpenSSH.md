@@ -291,7 +291,7 @@ To restart the service
 ~~~
 systemctl stop sshd
 ~~~
-When you stop the service it won't terminate the existing connections. If you disconnect you won't be able to connect back the service will be disconected. It's wise to start the service again after stopping it.
+When you stop the service it won't terminate the existing connections. If you disconnect you won't be able to connect back. The service will be disconected. It's wise to start the service again after stopping it.
 ~~~
 systemctl start sshd
 ~~~
